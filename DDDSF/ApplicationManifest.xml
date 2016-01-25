@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="DDDSFType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+   <Parameters>
+      <Parameter Name="CardActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="CardActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="CardActorService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="BoardActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="BoardActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="BoardActorService_TargetReplicaSetSize" DefaultValue="3" />
+   </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="BoardPkg" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
+   <DefaultServices>
+      <Service Name="CardActorService" GeneratedIdRef="c864cab2-e64b-496b-b42c-8a59cf2a6c86">
+         <StatefulService ServiceTypeName="CardActorServiceType" TargetReplicaSetSize="[CardActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CardActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[CardActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="BoardActorService" GeneratedIdRef="0c57061a-e816-4543-9bf6-de797dc6717f">
+         <StatefulService ServiceTypeName="BoardActorServiceType" TargetReplicaSetSize="[BoardActorService_TargetReplicaSetSize]" MinReplicaSetSize="[BoardActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[BoardActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+   </DefaultServices>
+</ApplicationManifest>
